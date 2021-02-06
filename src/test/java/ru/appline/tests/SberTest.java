@@ -9,7 +9,7 @@ import ru.appline.baseTests.BaseTests;
 
 import static java.lang.Thread.sleep;
 
-public class sberTest extends BaseTests {
+public class SberTest extends BaseTests {
 
     @Test
     public void runTest() throws InterruptedException {

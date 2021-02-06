@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseTests {
     static  ChromeOptions options;
-    protected WebDriver driver;
-    protected WebDriverWait wait;
+    protected static WebDriver driver;
+    protected static WebDriverWait wait;
     protected JavascriptExecutor jse;
 
     @BeforeAll
@@ -25,19 +25,17 @@ public class BaseTests {
       options = new ChromeOptions();
         options.addArguments("--disable-notifications");
         options.addArguments("start-maximized");
-    }
-
-    @AfterAll
-    static void afterAll() {
-        System.out.println("@AfterAll");
-    }
-
-    @BeforeEach
-    void beforeEach() {
         driver = new ChromeDriver(options);
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10, 1000);
+    }
+
+
+
+    @BeforeEach
+    void beforeEach() {
+
         //переходим по ссылке
         String baseUrl = "https://www.sberbank.ru/ru/person";
 
@@ -45,8 +43,8 @@ public class BaseTests {
         jse = (JavascriptExecutor) driver;
     }
 
-    @AfterEach
-    void afterEach() {
+    @AfterAll
+   static void afterAll() {
         driver.quit();
     }
 
