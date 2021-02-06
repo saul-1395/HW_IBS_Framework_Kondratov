@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.appline.baseTests.BaseTests;
@@ -52,6 +53,7 @@ public class ParamTest extends BaseTests {
         checkElementisVisible(driver.findElement(By.xpath("//h1/..//a/span[text()='" + buttonOnline + "']")), "Оформить онлайн");
         clickButton("//h1/..//a/span[text()='" + buttonOnline + "']/..");
         sleep(2000);
+        
         //заполняем поля
         String lastnameLabel = "Фамилия";
         String firstnameLabel = "Имя";
@@ -69,13 +71,11 @@ public class ParamTest extends BaseTests {
         String mailLable = "E-mail";
         inputMailForm(mailLable, "mail@mail.com");
 
-
         //заполняем Рiк Нарождення
         String birthDayLabel = "Дата рождения";
         inputDataForm(birthDayLabel, "01012000");
 
-
-        //заполняем поле телфон         !!! неудачно, так и не осилил пока, просто курсор моргает, ничего не вводится и ошибка не пдает, кликнуть нельзя
+        //заполняем поле телфон
         inputPhoneForm("9197700610");
 
         sleep(1000);
@@ -109,10 +109,9 @@ public class ParamTest extends BaseTests {
     //метод заполнения формы Телефон
     private void inputPhoneForm(String phone) throws InterruptedException {
         WebElement element = driver.findElement(By.xpath("//Input[@data-name='phone']"));
-        //    scrollToElementJs(element);
         wait.until(ExpectedConditions.elementToBeClickable(element));
-        element.clear();
-        // element.click();
+        element.sendKeys(Keys.CONTROL + "a");
+        element.sendKeys(Keys.DELETE);
         element.sendKeys(phone);
     }
 
@@ -125,7 +124,8 @@ public class ParamTest extends BaseTests {
     //заполняем поле mail
     private void inputMailForm(String mailLable, String mail) {
         WebElement inputMail = driver.findElement(By.xpath("//label[text()='" + mailLable + "']/../input"));
-        inputMail.clear();
+        inputMail.sendKeys(Keys.CONTROL + "a");
+        inputMail.sendKeys(Keys.DELETE);
         inputMail.sendKeys(mail);
     }
 
